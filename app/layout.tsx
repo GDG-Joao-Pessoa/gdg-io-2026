@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Manrope, Roboto_Mono } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 const manrope = Manrope({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${robotoMono.variable}`}>
       <body>{children}</body>
+      <GoogleAnalytics gaId="G-HBM8TF9S5H" />
     </html>
   )
 }
