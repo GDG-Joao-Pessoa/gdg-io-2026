@@ -131,6 +131,8 @@ export default function Home() {
                 <a
                   className={`btn ${t.featured ? 'btn-on-dark' : 'btn-soon'}`}
                   href={t.ctaHref}
+                  target="_blank"
+                  rel="noopener"
                   style={{ justifyContent: 'center' }}
                 >
                   {t.ctaLabel}

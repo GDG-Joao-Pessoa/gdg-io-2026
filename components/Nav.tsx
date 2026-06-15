@@ -23,7 +23,7 @@ export default function Nav() {
           <a href="/#local" onClick={() => setOpen(false)}>Local</a>
           <a href="/#faq" onClick={() => setOpen(false)}>FAQ</a>
         </div>
-        <a className="btn btn-primary nav-cta" href="/#ingressos" style={{ fontSize: '15px', padding: '11px 22px' }}>
+        <a className="btn btn-primary nav-cta" href="https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603" target="_blank" rel="noopener" style={{ fontSize: '15px', padding: '11px 22px' }}>
           Inscreva-se
         </a>
         <button

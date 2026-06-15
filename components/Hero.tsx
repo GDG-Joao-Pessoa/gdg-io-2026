@@ -40,7 +40,7 @@ export default function Hero() {
               <span className="f"><span className="pin" style={{ background: 'var(--redH)' }} />UNIESP · Cabedelo-PB</span>
             </div>
             <div className="cta-row">
-              <a className="btn btn-on-dark" href="#ingressos">
+              <a className="btn btn-on-dark" href="https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603" target="_blank" rel="noopener">
                 <span className="dot" style={{ background: 'var(--red)' }} />Quero participar
               </a>
               <a className="btn btn-ghost" href="#agenda">Ver agenda</a>

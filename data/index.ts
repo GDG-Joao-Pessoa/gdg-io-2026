@@ -21,7 +21,7 @@ export const tickets = [
     price: 'Em breve',
     features: ['Melhor preço', 'Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
     ctaLabel: 'Abre 15 JUN · 12h',
-    ctaHref: '#',
+    ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: true,
   },
   {
@@ -30,7 +30,7 @@ export const tickets = [
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
     ctaLabel: 'Em breve',
-    ctaHref: '#',
+    ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
   {
@@ -39,7 +39,7 @@ export const tickets = [
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
     ctaLabel: 'Em breve',
-    ctaHref: '#',
+    ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
   {
@@ -48,7 +48,7 @@ export const tickets = [
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
     ctaLabel: 'Em breve',
-    ctaHref: '#',
+    ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
 ]
