@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
+import SpeakersCarousel from '@/components/SpeakersCarousel'
 import { stats, tracks, tickets, faqItems } from '@/data'
 
 export default function Home() {
@@ -71,14 +72,7 @@ export default function Home() {
             <h2>Palestrantes</h2>
             <p>Estamos finalizando a lista de convidados. Em breve anunciamos os palestrantes confirmados — fique de olho no nosso Instagram.</p>
           </div>
-          <div className="speakers">
-            {[0, 1, 2, 3].map((i) => (
-              <div className="spk soon" key={i}>
-                <div className="q">?</div>
-                <div className="mono">Em breve</div>
-              </div>
-            ))}
-          </div>
+          <SpeakersCarousel />
         </div>
       </section>
 
@@ -93,9 +87,6 @@ export default function Home() {
                 <h3>Compartilhe seu conhecimento</h3>
                 <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended.</p>
                 <div className="cta-row">
-                  <Link className="btn btn-on-dark" href="/call-for-papers">
-                    <span className="dot" style={{ background: 'var(--red)' }} />Enviar proposta
-                  </Link>
                   <span className="tag-soon">Inscrições em breve</span>
                 </div>
               </div>
@@ -110,9 +101,6 @@ export default function Home() {
                 <h3>Seja voluntário</h3>
                 <p>O evento é construído por pessoas como você. Ajude na organização, recepção, conteúdo ou bastidores e viva o I/O por dentro.</p>
                 <div className="cta-row">
-                  <Link className="btn btn-light" href="/voluntario">
-                    <span className="dot" style={{ background: 'var(--green)' }} />Quero ser voluntário
-                  </Link>
                   <span className="tag-soon" style={{ color: 'var(--green)' }}>Inscrições em breve</span>
                 </div>
               </div>

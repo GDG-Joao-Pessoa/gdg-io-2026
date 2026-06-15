@@ -29,7 +29,7 @@ export default function Footer() {
               <h4>Evento</h4>
               <a href="/#sobre">Sobre</a>
               <a href="/#agenda">Agenda</a>
-              <a href="/#palestrantes">Palestrantes</a>
+              <a href="/palestrantes">Palestrantes</a>
               <a href="/#ingressos">Inscrição</a>
             </div>
             <div className="fcol">

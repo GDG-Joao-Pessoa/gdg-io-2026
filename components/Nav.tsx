@@ -17,7 +17,7 @@ export default function Nav() {
         <div className={`links${open ? ' open' : ''}`} id="navlinks">
           <a href="/#sobre" onClick={() => setOpen(false)}>Sobre</a>
           <a href="/#agenda" onClick={() => setOpen(false)}>Agenda</a>
-          <a href="/#palestrantes" onClick={() => setOpen(false)}>Palestrantes</a>
+          <a href="/palestrantes" onClick={() => setOpen(false)}>Palestrantes</a>
           <a href="/#c4p" onClick={() => setOpen(false)}>Call for Papers</a>
           <a href="/#voluntarios" onClick={() => setOpen(false)}>Voluntários</a>
           <a href="/#local" onClick={() => setOpen(false)}>Local</a>
