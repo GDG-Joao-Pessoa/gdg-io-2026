@@ -6,9 +6,49 @@ import Footer from '@/components/Footer'
 import SpeakersCarousel from '@/components/SpeakersCarousel'
 import { stats, tracks, tickets, faqItems } from '@/data'
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Google I/O Extended João Pessoa + Build with AI',
+  description: 'O maior encontro de desenvolvedores da Paraíba. Um dia inteiro de palestras, mão na massa com IA e comunidade.',
+  startDate: '2026-07-18T08:00:00-03:00',
+  endDate: '2026-07-18T17:00:00-03:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: 'UNIESP Centro Universitário',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'BR-230, Km 14 — Morada Nova',
+      addressLocality: 'Cabedelo',
+      addressRegion: 'PB',
+      postalCode: '58109-303',
+      addressCountry: 'BR',
+    },
+  },
+  image: 'https://gdgjoaopessoa.com.br/assets/hero-community.png',
+  url: 'https://gdgjoaopessoa.com.br',
+  organizer: {
+    '@type': 'Organization',
+    name: 'GDG João Pessoa',
+    url: 'https://gdgjoaopessoa.com.br',
+  },
+  offers: {
+    '@type': 'Offer',
+    url: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
+    availability: 'https://schema.org/InStock',
+    validFrom: '2026-06-15T12:00:00-03:00',
+  },
+}
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
 
       <Hero />
