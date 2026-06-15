@@ -17,12 +17,39 @@ const robotoMono = Roboto_Mono({
   display: 'swap',
 })
 
+const SITE_URL = 'https://gdgjoaopessoa.com.br'
+const TITLE = 'GDG João Pessoa · I/O Extended + Build with AI — 18 de julho'
+const DESCRIPTION = 'O maior encontro de desenvolvedores da Paraíba. Google I/O Extended + Build with AI — 18 de julho, no UNIESP, Cabedelo-PB.'
+
 export const metadata: Metadata = {
-  title: 'GDG João Pessoa · I/O Extended + Build with AI — 18 de julho',
-  description: 'O maior encontro de desenvolvedores da Paraíba. Google I/O Extended + Build with AI — 18 de julho, no UNIESP, Cabedelo-PB.',
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
   icons: {
     icon: '/assets/gdg-icon.png',
     apple: '/assets/gdg-icon.png',
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: 'GDG João Pessoa',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [
+      {
+        url: '/assets/hero-community.png',
+        width: 1200,
+        height: 630,
+        alt: 'GDG João Pessoa · I/O Extended + Build with AI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/assets/hero-community.png'],
   },
 }
 
