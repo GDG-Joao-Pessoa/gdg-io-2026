@@ -19,6 +19,10 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: 'GDG João Pessoa · I/O Extended + Build with AI — 18 de julho',
   description: 'O maior encontro de desenvolvedores da Paraíba. Google I/O Extended + Build with AI — 18 de julho, no UNIESP, Cabedelo-PB.',
+  icons: {
+    icon: '/assets/gdg-icon.png',
+    apple: '/assets/gdg-icon.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
