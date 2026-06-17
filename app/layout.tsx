@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${robotoMono.variable}`}>
       <body>{children}</body>
-      <GoogleAnalytics gaId="G-HBM8TF9S5H" />
+      <GoogleAnalytics gaId="G-3T6T2FZ6JC" />
     </html>
   )
 }
