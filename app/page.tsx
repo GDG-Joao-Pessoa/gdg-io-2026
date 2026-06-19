@@ -4,11 +4,52 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import SpeakersCarousel from '@/components/SpeakersCarousel'
+import C4PCountdown from '@/components/C4PCountdown'
 import { stats, tracks, tickets, faqItems } from '@/data'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Google I/O Extended João Pessoa + Build with AI',
+  description: 'O maior encontro de desenvolvedores da Paraíba. Um dia inteiro de palestras, mão na massa com IA e comunidade.',
+  startDate: '2026-07-18T08:00:00-03:00',
+  endDate: '2026-07-18T17:30:00-03:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: 'UNIESP Centro Universitário',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'BR-230, Km 14 — Morada Nova',
+      addressLocality: 'Cabedelo',
+      addressRegion: 'PB',
+      postalCode: '58109-303',
+      addressCountry: 'BR',
+    },
+  },
+  image: 'https://gdgjoaopessoa.com.br/assets/hero-community.png',
+  url: 'https://gdgjoaopessoa.com.br',
+  organizer: {
+    '@type': 'Organization',
+    name: 'GDG João Pessoa',
+    url: 'https://gdgjoaopessoa.com.br',
+  },
+  offers: {
+    '@type': 'Offer',
+    url: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
+    availability: 'https://schema.org/InStock',
+    validFrom: '2026-06-15T12:00:00-03:00',
+  },
+}
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
 
       <Hero />
@@ -85,13 +126,13 @@ export default function Home() {
               <div className="bcopy">
                 <span className="eyebrow" style={{ color: 'var(--yellowH)' }}>Chamada de palestras · C4P</span>
                 <h3>Compartilhe seu conhecimento</h3>
-                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended.</p>
+                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended. Resultados até <strong>30 de junho</strong>.</p>
                 <div className="cta-row">
-                  <span className="tag-soon">Inscrições em breve</span>
+                  <C4PCountdown />
                 </div>
               </div>
               <div className="ill">
-                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} />
+                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} priority />
               </div>
             </div>
 
@@ -118,18 +159,23 @@ export default function Home() {
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>Inscrição</span>
             <h2>Garanta seu ingresso</h2>
-            <p>As inscrições acontecem por lotes. O 1º lote começa <strong>15 de junho, às 12h</strong>. Quanto antes, melhor o preço.</p>
+            <p>As inscrições acontecem por lotes. <strong>1º lote aberto</strong> — quanto antes, melhor o preço.</p>
           </div>
           <div className="tickets">
             {tickets.map((t) => (
               <div className={`tk${t.featured ? ' feature' : ''}`} key={t.id}>
-                <span className="k">{t.name}</span>
+                <span className="k">
+                  {t.name}
+                  {(t as typeof t & { open?: boolean }).open && (
+                    <span className="tk-open">Inscrições abertas</span>
+                  )}
+                </span>
                 <div className="price">{t.price}</div>
                 <ul className="lst">
                   {t.features.map((f) => <li key={f}>{f}</li>)}
                 </ul>
                 <a
-                  className={`btn ${t.featured ? 'btn-on-dark' : 'btn-soon'}`}
+                  className={`btn ${(t as typeof t & { open?: boolean }).open ? 'btn-on-dark' : 'btn-soon'}`}
                   href={t.ctaHref}
                   target="_blank"
                   rel="noopener"

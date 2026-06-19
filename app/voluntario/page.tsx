@@ -2,21 +2,44 @@
 
 import { useRef, useState } from 'react'
 import FormHeader from '@/components/FormHeader'
+import Toast from '@/components/Toast'
+import { api } from '@/lib/api'
 
 export default function Voluntario() {
   const formRef = useRef<HTMLFormElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!formRef.current?.checkValidity()) {
       formRef.current?.reportValidity()
       return
     }
-    cardRef.current?.classList.add('done')
-    setDone(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    setSubmitting(true)
+    setToast(null)
+
+    const fd = new FormData(formRef.current)
+    try {
+      await api.volunteers.create({
+        nome:      fd.get('nome'),
+        email:     fd.get('email'),
+        whats:     fd.get('whats'),
+        cidade:    fd.get('cidade') || null,
+        camiseta:  fd.get('camiseta') || null,
+        areas:     fd.getAll('area'),
+        disp:      fd.get('disp') || null,
+        exp:       fd.get('exp') || null,
+        motiv:     fd.get('motiv') || null,
+      })
+      setDone(true)
+    } catch (err) {
+      setToast({ type: 'error', message: err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.' })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -41,7 +64,7 @@ export default function Voluntario() {
 
       <main className="fbody">
         <div className="wrap">
-          <div className="fcard" ref={cardRef}>
+          <div className="fcard">
             <form className="fform" ref={formRef} onSubmit={handleSubmit} noValidate>
 
               <div className="fsection-title">Seus dados</div>
@@ -117,26 +140,34 @@ export default function Voluntario() {
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light">
-                  <span className="dot" style={{ background: 'var(--green)' }} />Enviar inscrição
+                <button type="submit" className="btn btn-light" disabled={submitting}>
+                  <span className="dot" style={{ background: 'var(--green)' }} />
+                  {submitting ? 'Enviando…' : 'Enviar inscrição'}
                 </button>
                 <span className="req-note"><span className="req">*</span> campos obrigatórios</span>
               </div>
             </form>
 
-            <div className={`fsuccess${done ? ' show' : ''}`}>
-              <div className="ic">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </div>
-              <h2>Inscrição enviada!</h2>
-              <p>Obrigado por querer fazer parte do time. Vamos analisar sua inscrição e entrar em contato em breve pelo WhatsApp.</p>
-              <a className="btn btn-light" href="/">Voltar ao site</a>
-            </div>
           </div>
         </div>
       </main>
+
+      <div className={`fsuccess${done ? ' show' : ''}`}>
+        <div className="fsuccess-box">
+          <div className="ic">
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+          <h2>Inscrição enviada!</h2>
+          <p>Obrigado por querer fazer parte do time. Vamos analisar sua inscrição e entrar em contato em breve pelo WhatsApp.</p>
+          <div className="factions">
+            <a className="btn btn-light" href="/">Voltar ao site</a>
+          </div>
+        </div>
+      </div>
+
+      {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   )
 }

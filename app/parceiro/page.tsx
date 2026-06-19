@@ -3,21 +3,44 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import FormHeader from '@/components/FormHeader'
+import Toast from '@/components/Toast'
+import { api } from '@/lib/api'
 
 export default function Parceiro() {
   const formRef = useRef<HTMLFormElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!formRef.current?.checkValidity()) {
       formRef.current?.reportValidity()
       return
     }
-    cardRef.current?.classList.add('done')
-    setDone(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    setSubmitting(true)
+    setToast(null)
+
+    const fd = new FormData(formRef.current)
+    try {
+      await api.sponsors.create({
+        empresa:  fd.get('empresa'),
+        site:     fd.get('site') || null,
+        segmento: fd.get('segmento') || null,
+        resp:     fd.get('resp'),
+        cargo:    fd.get('cargo') || null,
+        email:    fd.get('email'),
+        whats:    fd.get('whats'),
+        cota:     fd.get('cota'),
+        msg:      fd.get('msg') || null,
+      })
+      setDone(true)
+    } catch (err) {
+      setToast({ type: 'error', message: err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.' })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -42,7 +65,7 @@ export default function Parceiro() {
 
       <main className="fbody">
         <div className="wrap">
-          <div className="fcard" ref={cardRef}>
+          <div className="fcard">
             <form className="fform" ref={formRef} onSubmit={handleSubmit} noValidate>
 
               <div className="fsection-title">Sua empresa</div>
@@ -106,8 +129,9 @@ export default function Parceiro() {
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light">
-                  <span className="dot" style={{ background: 'var(--yellow)' }} />Enviar interesse
+                <button type="submit" className="btn btn-light" disabled={submitting}>
+                  <span className="dot" style={{ background: 'var(--yellow)' }} />
+                  {submitting ? 'Enviando…' : 'Enviar interesse'}
                 </button>
                 <Link className="btn btn-ghost" href="/kit-de-patrocinio" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>
                   Baixar kit de patrocínio
@@ -116,22 +140,27 @@ export default function Parceiro() {
               </div>
             </form>
 
-            <div className={`fsuccess${done ? ' show' : ''}`}>
-              <div className="ic">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </div>
-              <h2>Interesse enviado!</h2>
-              <p>Obrigado! Em breve a organização entra em contato com o kit de patrocínio e as cotas disponíveis.</p>
-              <div className="factions" style={{ justifyContent: 'center' }}>
-                <Link className="btn btn-light" href="/kit-de-patrocinio">Baixar kit de patrocínio</Link>
-                <a className="btn btn-ghost" href="/" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>Voltar ao site</a>
-              </div>
-            </div>
           </div>
         </div>
       </main>
+
+      <div className={`fsuccess${done ? ' show' : ''}`}>
+        <div className="fsuccess-box">
+          <div className="ic">
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+          <h2>Interesse enviado!</h2>
+          <p>Obrigado! Em breve a organização entra em contato com o kit de patrocínio e as cotas disponíveis.</p>
+          <div className="factions">
+            <Link className="btn btn-light" href="/kit-de-patrocinio">Baixar kit de patrocínio</Link>
+            <a className="btn btn-ghost" href="/" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>Voltar ao site</a>
+          </div>
+        </div>
+      </div>
+
+      {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   )
 }

@@ -1,9 +1,11 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { SPEAKERS } from '@/lib/speakers'
 
-const CARDS = 4
+const CAROUSEL_SLOTS = 4
 
 export default function SpeakersCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -15,11 +17,24 @@ export default function SpeakersCarousel() {
     trackRef.current.scrollBy({ left: dir === 'next' ? card.offsetWidth + 20 : -(card.offsetWidth + 20), behavior: 'smooth' })
   }
 
+  const soonCount = Math.max(0, CAROUSEL_SLOTS - SPEAKERS.length)
+
   return (
     <div className="spk-carousel">
       <div className="spk-track" ref={trackRef}>
-        {Array.from({ length: CARDS }).map((_, i) => (
-          <div className="spk soon" key={i}>
+        {SPEAKERS.map((s, i) => (
+          <div className="spk" key={s.nome}>
+            <div className="spk-photo">
+              <Image src={s.foto} alt={s.nome} width={400} height={533} priority={i === 0} />
+            </div>
+            <div className="spk-overlay">
+              <div className="nm">{s.nome}</div>
+              <div className="ro">{s.cargo}</div>
+            </div>
+          </div>
+        ))}
+        {Array.from({ length: soonCount }).map((_, i) => (
+          <div className="spk soon" key={`soon-${i}`}>
             <div className="q">?</div>
             <div className="mono">Em breve</div>
           </div>

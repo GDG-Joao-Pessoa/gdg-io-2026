@@ -2,7 +2,7 @@ export const EVENT_DATE = '2026-07-18T08:00:00-03:00'
 
 export const stats = [
   { n: '+500', l: 'participantes esperados' },
-  { n: '14', l: 'keynotes, palestras e oficinas' },
+  { n: '24', l: 'keynotes, palestras e oficinas' },
   { n: '8h', l: 'de conteúdo e networking' },
   { n: '100%', l: 'feito pela comunidade' },
 ]
@@ -18,9 +18,10 @@ export const tickets = [
   {
     id: '1lot',
     name: '1º Lote',
-    price: 'Em breve',
+    price: 'R$ 70',
+    open: true,
     features: ['Melhor preço', 'Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Abre 15 JUN · 12h',
+    ctaLabel: 'Inscreva-se agora',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: true,
   },
@@ -29,7 +30,7 @@ export const tickets = [
     name: '2º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 24 JUN',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -38,7 +39,7 @@ export const tickets = [
     name: '3º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 04 JUL',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -47,7 +48,7 @@ export const tickets = [
     name: '4º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 10 JUL',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -56,7 +57,7 @@ export const tickets = [
 export const faqItems = [
   {
     q: 'O evento é gratuito?',
-    a: 'As inscrições funcionam por lotes. Os valores e a data de abertura de cada lote serão divulgados em breve nas nossas redes — o 1º lote começa em 15 de junho, às 12h.',
+    a: 'As inscrições funcionam por lotes com preços progressivos. O 1º lote está aberto por R$ 70. Os próximos lotes abrem em 24/06, 04/07 e 10/07.',
     open: true,
   },
   {
@@ -91,48 +92,56 @@ export const scheduleItems = {
     { time: '08:00', title: 'Credenciamento & café', sub: 'Boas-vindas e networking inicial', type: 'br', label: 'Abertura' },
     { time: '09:00', title: 'Abertura oficial', sub: 'Boas-vindas do GDG João Pessoa', type: 'br', label: 'Abertura' },
     { time: '09:20', title: 'Keynote 1', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '10:10', title: 'Keynote 2', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '11:00', title: 'Keynote 3', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '10:00', title: 'Keynote 2', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '10:40', title: 'Keynote 3', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '11:20', title: 'Keynote 4', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
   ],
   afternoon: [
     {
       trackClass: 'b', trackName: 'IA + Dados', location: 'Palco Principal',
       items: [
-        { time: '13:30', title: 'Palestra 1', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 2', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:40', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '14:20', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
       ],
     },
     {
-      trackClass: 'r', trackName: 'Mobile', location: 'Sala 1',
+      trackClass: 'r', trackName: 'Mobile', location: 'Trilha Mobile',
       items: [
-        { time: '13:30', title: 'Palestra 3', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 4', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'g', trackName: 'Web + Cloud', location: 'Sala 2',
+      trackClass: 'g', trackName: 'Web + Cloud', location: 'Trilha Web + Cloud',
       items: [
-        { time: '13:30', title: 'Palestra 5', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 6', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'y', trackName: 'Carreira', location: 'Sala 3',
+      trackClass: 'y', trackName: 'Carreira', location: 'Trilha Carreira',
       items: [
-        { time: '13:30', title: 'Palestra 7', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 8', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'ink', trackName: 'Oficinas hands-on', location: 'Laboratórios 1 e 2',
+      trackClass: 'ink', trackName: 'Laboratório 1', location: 'Laboratório 1',
       items: [
-        { time: '13:30', title: 'Oficina 1', sub: 'Em breve · Laboratório 1', tba: true, type: 'w', label: 'Oficina' },
-        { time: '13:30', title: 'Oficina 2', sub: 'Em breve · Laboratório 2', tba: true, type: 'w', label: 'Oficina' },
+        { time: '13:00', title: 'Oficina', sub: 'Até 15h00 · 2h de duração', type: 'w', label: 'Oficina' },
+      ],
+    },
+    {
+      trackClass: 'ink', trackName: 'Laboratório 2', location: 'Laboratório 2',
+      items: [
+        { time: '13:00', title: 'Oficina', sub: 'Até 15h00 · 2h de duração', tba: true, type: 'w', label: 'Oficina' },
       ],
     },
   ],
   closing: [
-    { time: '15:40', title: 'Keynote 6', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '16:40', title: 'Encerramento, sorteios e foto oficial 🎬', sub: 'Agradecimentos finais', type: 'br', label: 'Encerramento' },
+    { time: '15:30', title: 'Keynote 5', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '16:10', title: 'Keynote 6', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '17:00', title: 'Encerramento, sorteios e foto oficial 🎬', sub: 'Agradecimentos finais', type: 'br', label: 'Encerramento' },
   ],
 }
