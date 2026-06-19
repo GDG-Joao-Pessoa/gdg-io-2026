@@ -37,6 +37,7 @@ export default function CallForPapers() {
       await api.proposals.create({
         nome:    fd.get('nome'),
         email:   fd.get('email'),
+        whats:   (fd.get('whats') as string | null)?.replace(/\D/g, '') ?? '',
         cargo:   fd.get('cargo') || null,
         social:  fd.get('social') || null,
         bio:     fd.get('bio'),
@@ -87,6 +88,10 @@ export default function CallForPapers() {
                 <div className="field">
                   <label htmlFor="email">E-mail<span className="req">*</span></label>
                   <input id="email" name="email" type="email" placeholder="voce@email.com" required />
+                </div>
+                <div className="field">
+                  <label htmlFor="whats">WhatsApp <span className="hint">— pra falarmos com você sobre a palestra</span><span className="req">*</span></label>
+                  <input id="whats" name="whats" type="tel" inputMode="numeric" placeholder="(83) 99999-9999" required />
                 </div>
                 <div className="field">
                   <label htmlFor="cargo">Cargo / Empresa</label>
