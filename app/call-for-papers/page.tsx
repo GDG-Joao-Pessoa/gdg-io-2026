@@ -97,7 +97,7 @@ export default function CallForPapers() {
                   <label htmlFor="cargo">Cargo / Empresa</label>
                   <input id="cargo" name="cargo" type="text" placeholder="Ex.: Dev na Acme" />
                 </div>
-                <div className="field">
+                <div className="field full">
                   <label htmlFor="social">LinkedIn ou @ <span className="hint">— pra te conhecermos</span></label>
                   <input id="social" name="social" type="text" placeholder="linkedin.com/in/voce" />
                 </div>
