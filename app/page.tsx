@@ -13,7 +13,7 @@ const jsonLd = {
   name: 'Google I/O Extended João Pessoa + Build with AI',
   description: 'O maior encontro de desenvolvedores da Paraíba. Um dia inteiro de palestras, mão na massa com IA e comunidade.',
   startDate: '2026-07-18T08:00:00-03:00',
-  endDate: '2026-07-18T17:00:00-03:00',
+  endDate: '2026-07-18T17:30:00-03:00',
   eventStatus: 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   location: {

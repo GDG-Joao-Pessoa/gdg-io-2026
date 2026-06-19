@@ -36,7 +36,7 @@ export default function Hero() {
             </p>
             <div className="factbar">
               <span className="f"><span className="pin" style={{ background: 'var(--blueH)' }} />18 JUL · Sábado</span>
-              <span className="f"><span className="pin" style={{ background: 'var(--greenH)' }} />08h às 17h</span>
+              <span className="f"><span className="pin" style={{ background: 'var(--greenH)' }} />08h às 17h30</span>
               <span className="f"><span className="pin" style={{ background: 'var(--redH)' }} />UNIESP · Cabedelo-PB</span>
             </div>
             <div className="cta-row">
