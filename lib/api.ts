@@ -28,3 +28,63 @@ export const api = {
     create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/api/sponsors', body),
   },
 }
+
+// ---- Leitura pública (programação + palestrantes) --------------------------
+
+const BACKEND = 'https://api.gdg.rodolfodebonis.com.br'
+
+export interface ApiRoom {
+  id: string
+  name: string
+  sort: number
+}
+
+export interface ApiSession {
+  id: string
+  title: string
+  type: string
+  speaker: string
+  trilha: string
+  roomId?: string
+  isPlenary: boolean
+  day: string
+  startTime: string
+  endTime: string
+  description: string
+  published: boolean
+  sort: number
+}
+
+export interface ApiSpeaker {
+  id: string
+  nome: string
+  cargo: string
+  badge: string
+  trilha: string
+  bio: string
+  palestra: string
+  formato: string
+  fotoUrl: string
+}
+
+// Busca server-side com ISR (revalida a cada 60s). Retorna null em falha para o
+// chamador cair no conteúdo de fallback (hardcoded), garantindo resiliência.
+export async function getSchedule(): Promise<{ rooms: ApiRoom[]; sessions: ApiSession[] } | null> {
+  try {
+    const res = await fetch(`${BACKEND}/v1/public/schedule`, { next: { revalidate: 60 } })
+    if (!res.ok) return null
+    return (await res.json()) as { rooms: ApiRoom[]; sessions: ApiSession[] }
+  } catch {
+    return null
+  }
+}
+
+export async function getSpeakers(): Promise<ApiSpeaker[] | null> {
+  try {
+    const res = await fetch(`${BACKEND}/v1/public/speakers`, { next: { revalidate: 60 } })
+    if (!res.ok) return null
+    return (await res.json()) as ApiSpeaker[]
+  } catch {
+    return null
+  }
+}
