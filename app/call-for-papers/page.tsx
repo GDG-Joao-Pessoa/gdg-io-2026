@@ -16,6 +16,15 @@ export default function CallForPapers() {
     setFormValid(formRef.current?.checkValidity() ?? false)
   }
 
+  function maskWhatsApp(e: React.ChangeEvent<HTMLInputElement>) {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 11)
+    let masked = digits
+    if (digits.length > 2)  masked = `(${digits.slice(0,2)}) ${digits.slice(2)}`
+    if (digits.length > 7)  masked = `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`
+    e.target.value = masked
+    checkValidity()
+  }
+
   function closeSuccess() {
     setDone(false)
     formRef.current?.reset()
@@ -91,7 +100,7 @@ export default function CallForPapers() {
                 </div>
                 <div className="field">
                   <label htmlFor="whats">WhatsApp <span className="hint">— pra falarmos com você sobre a palestra</span><span className="req">*</span></label>
-                  <input id="whats" name="whats" type="tel" inputMode="numeric" placeholder="(83) 99999-9999" required />
+                  <input id="whats" name="whats" type="tel" inputMode="numeric" placeholder="(83) 99999-9999" onChange={maskWhatsApp} required />
                 </div>
                 <div className="field">
                   <label htmlFor="cargo">Cargo / Empresa</label>
