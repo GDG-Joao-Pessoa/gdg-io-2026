@@ -33,11 +33,11 @@ export default function Palestrantes() {
       <section className="section">
         <div className="wrap">
           <div className="speakers">
-            {SPEAKERS.map((s) => (
+            {SPEAKERS.map((s, i) => (
               <div key={s.nome} className="spk-card">
                 <div className="spk">
                   <div className="spk-photo">
-                    <Image src={s.foto} alt={s.nome} width={480} height={640} />
+                    <Image src={s.foto} alt={s.nome} width={480} height={640} priority={i === 0} />
                   </div>
                   <div className="spk-overlay">
                     <div className="nm">{s.nome}</div>
