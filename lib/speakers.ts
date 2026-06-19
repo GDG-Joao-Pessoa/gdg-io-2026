@@ -31,4 +31,5 @@ export const SPEAKERS: Speaker[] = [
   },
 ]
 
-export const TOTAL_SLOTS = 8
+export const TOTAL_SLOTS = 24
+
