@@ -2,7 +2,7 @@ export const EVENT_DATE = '2026-07-18T08:00:00-03:00'
 
 export const stats = [
   { n: '+500', l: 'participantes esperados' },
-  { n: '14', l: 'keynotes, palestras e oficinas' },
+  { n: '24', l: 'keynotes, palestras e oficinas' },
   { n: '8h', l: 'de conteúdo e networking' },
   { n: '100%', l: 'feito pela comunidade' },
 ]
@@ -92,48 +92,56 @@ export const scheduleItems = {
     { time: '08:00', title: 'Credenciamento & café', sub: 'Boas-vindas e networking inicial', type: 'br', label: 'Abertura' },
     { time: '09:00', title: 'Abertura oficial', sub: 'Boas-vindas do GDG João Pessoa', type: 'br', label: 'Abertura' },
     { time: '09:20', title: 'Keynote 1', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '10:10', title: 'Keynote 2', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '11:00', title: 'Keynote 3', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '10:00', title: 'Keynote 2', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '10:40', title: 'Keynote 3', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '11:20', title: 'Keynote 4', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
   ],
   afternoon: [
     {
       trackClass: 'b', trackName: 'IA + Dados', location: 'Palco Principal',
       items: [
-        { time: '13:30', title: 'Palestra 1', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 2', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:40', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '14:20', title: 'Palestra', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
       ],
     },
     {
-      trackClass: 'r', trackName: 'Mobile', location: 'Sala 1',
+      trackClass: 'r', trackName: 'Mobile', location: 'Trilha Mobile',
       items: [
-        { time: '13:30', title: 'Palestra 3', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 4', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'g', trackName: 'Web + Cloud', location: 'Sala 2',
+      trackClass: 'g', trackName: 'Web + Cloud', location: 'Trilha Web + Cloud',
       items: [
-        { time: '13:30', title: 'Palestra 5', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 6', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'y', trackName: 'Carreira', location: 'Sala 3',
+      trackClass: 'y', trackName: 'Carreira', location: 'Trilha Carreira',
       items: [
-        { time: '13:30', title: 'Palestra 7', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
-        { time: '14:20', title: 'Palestra 8', sub: 'Em breve', tba: true, type: 't', label: 'Palestra' },
+        { time: '13:00', title: 'Workshop', sub: 'Em breve · até 14h20', tba: true, type: 'w', label: 'Workshop' },
+        { time: '14:20', title: 'Workshop', sub: 'Em breve', tba: true, type: 'w', label: 'Workshop' },
       ],
     },
     {
-      trackClass: 'ink', trackName: 'Oficinas hands-on', location: 'Laboratórios 1 e 2',
+      trackClass: 'ink', trackName: 'Laboratório 1', location: 'Laboratório 1',
       items: [
-        { time: '13:30', title: 'Oficina 1', sub: 'Em breve · Laboratório 1', tba: true, type: 'w', label: 'Oficina' },
-        { time: '13:30', title: 'Oficina 2', sub: 'Em breve · Laboratório 2', tba: true, type: 'w', label: 'Oficina' },
+        { time: '13:00', title: 'Oficina', sub: 'Até 15h00 · 2h de duração', type: 'w', label: 'Oficina' },
+      ],
+    },
+    {
+      trackClass: 'ink', trackName: 'Laboratório 2', location: 'Laboratório 2',
+      items: [
+        { time: '13:00', title: 'Oficina', sub: 'Até 15h00 · 2h de duração', tba: true, type: 'w', label: 'Oficina' },
       ],
     },
   ],
   closing: [
-    { time: '15:40', title: 'Keynote 6', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
-    { time: '16:40', title: 'Encerramento, sorteios e foto oficial 🎬', sub: 'Agradecimentos finais', type: 'br', label: 'Encerramento' },
+    { time: '15:30', title: 'Keynote 5', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '16:10', title: 'Keynote 6', sub: 'Em breve', tba: true, type: 'k', label: 'Keynote' },
+    { time: '17:00', title: 'Encerramento, sorteios e foto oficial 🎬', sub: 'Agradecimentos finais', type: 'br', label: 'Encerramento' },
   ],
 }

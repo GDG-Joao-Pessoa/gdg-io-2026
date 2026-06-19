@@ -18,7 +18,7 @@ export default function Programacao() {
   return (
     <div className="form-page">
       <FormHeader
-        eyebrow="18 de julho · Sábado · 08h–17h"
+        eyebrow="18 de julho · Sábado · 08h–17h30"
         eyebrowColor="var(--greenH)"
         title="Programação"
         description="De manhã, todos juntos no palco principal para as keynotes. À tarde, o evento se divide em trilhas paralelas — cada uma na sua sala. Grade preliminar; nomes &quot;a confirmar&quot; em finalização."
@@ -60,11 +60,11 @@ export default function Programacao() {
           {/* TARDE */}
           <div className="ph pm">
             <h2>Tarde</h2>
-            <span className="pr">1ª sessão 13h30 · 2ª 14h20</span>
+            <span className="pr">Slots: 13h00 · 13h40 · 14h20</span>
           </div>
           <p className="phnote">
-            Sessões às <strong>13h30</strong> e <strong>14h20</strong>, em salas diferentes.
-            As oficinas começam às 13h30 nos laboratórios. Circule entre as trilhas conforme seu interesse.
+            Slots às <strong>13h00</strong>, <strong>13h40</strong> e <strong>14h20</strong> nas trilhas paralelas.
+            As oficinas nos laboratórios têm 2h de duração (13h00–15h00). Circule conforme seu interesse.
           </p>
 
           {scheduleItems.afternoon.map((track) => (
@@ -92,12 +92,12 @@ export default function Programacao() {
             </div>
           ))}
 
-          <div className="coffee">☕ Coffee break · 15h10</div>
+          <div className="coffee">☕ Coffee break · 15h00</div>
 
           {/* ENCERRAMENTO */}
           <div className="ph end">
             <h2>Encerramento</h2>
-            <span className="pr">Palco Principal · 15h40–17h</span>
+            <span className="pr">Palco Principal · 15h30–17h30</span>
           </div>
           <div className="sched-list">
             {scheduleItems.closing.map((item, i) => (
