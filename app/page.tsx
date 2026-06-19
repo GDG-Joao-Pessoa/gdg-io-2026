@@ -4,6 +4,7 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import SpeakersCarousel from '@/components/SpeakersCarousel'
+import C4PCountdown from '@/components/C4PCountdown'
 import { stats, tracks, tickets, faqItems } from '@/data'
 
 const jsonLd = {
@@ -125,13 +126,13 @@ export default function Home() {
               <div className="bcopy">
                 <span className="eyebrow" style={{ color: 'var(--yellowH)' }}>Chamada de palestras · C4P</span>
                 <h3>Compartilhe seu conhecimento</h3>
-                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended.</p>
+                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended. Resultados até <strong>30 de junho</strong>.</p>
                 <div className="cta-row">
-                  <span className="tag-soon">Inscrições em breve</span>
+                  <C4PCountdown />
                 </div>
               </div>
               <div className="ill">
-                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} />
+                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} priority />
               </div>
             </div>
 
@@ -158,18 +159,23 @@ export default function Home() {
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>Inscrição</span>
             <h2>Garanta seu ingresso</h2>
-            <p>As inscrições acontecem por lotes. O 1º lote começa <strong>15 de junho, às 12h</strong>. Quanto antes, melhor o preço.</p>
+            <p>As inscrições acontecem por lotes. <strong>1º lote aberto</strong> — quanto antes, melhor o preço.</p>
           </div>
           <div className="tickets">
             {tickets.map((t) => (
               <div className={`tk${t.featured ? ' feature' : ''}`} key={t.id}>
-                <span className="k">{t.name}</span>
+                <span className="k">
+                  {t.name}
+                  {(t as typeof t & { open?: boolean }).open && (
+                    <span className="tk-open">Inscrições abertas</span>
+                  )}
+                </span>
                 <div className="price">{t.price}</div>
                 <ul className="lst">
                   {t.features.map((f) => <li key={f}>{f}</li>)}
                 </ul>
                 <a
-                  className={`btn ${t.featured ? 'btn-on-dark' : 'btn-soon'}`}
+                  className={`btn ${(t as typeof t & { open?: boolean }).open ? 'btn-on-dark' : 'btn-soon'}`}
                   href={t.ctaHref}
                   target="_blank"
                   rel="noopener"

@@ -2,14 +2,14 @@
 
 import { useRef, useState } from 'react'
 import FormHeader from '@/components/FormHeader'
+import Toast from '@/components/Toast'
 import { api } from '@/lib/api'
 
 export default function Voluntario() {
   const formRef = useRef<HTMLFormElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
   async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
@@ -19,7 +19,7 @@ export default function Voluntario() {
     }
 
     setSubmitting(true)
-    setError(null)
+    setToast(null)
 
     const fd = new FormData(formRef.current)
     try {
@@ -34,11 +34,9 @@ export default function Voluntario() {
         exp:       fd.get('exp') || null,
         motiv:     fd.get('motiv') || null,
       })
-      cardRef.current?.classList.add('done')
       setDone(true)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.')
+      setToast({ type: 'error', message: err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.' })
     } finally {
       setSubmitting(false)
     }
@@ -66,7 +64,7 @@ export default function Voluntario() {
 
       <main className="fbody">
         <div className="wrap">
-          <div className="fcard" ref={cardRef}>
+          <div className="fcard">
             <form className="fform" ref={formRef} onSubmit={handleSubmit} noValidate>
 
               <div className="fsection-title">Seus dados</div>
@@ -136,13 +134,6 @@ export default function Voluntario() {
                 </div>
               </div>
 
-              {error && (
-                <div className="fnote" style={{ color: 'var(--red)', marginTop: 16 }}>
-                  <span className="pin" style={{ background: 'var(--red)' }} />
-                  <span>{error}</span>
-                </div>
-              )}
-
               <div className="fnote">
                 <span className="pin" />
                 <span>As vagas de voluntariado são limitadas. Após a inscrição, a organização do GDG João Pessoa entra em contato pelo WhatsApp/e-mail informado.</span>
@@ -157,19 +148,26 @@ export default function Voluntario() {
               </div>
             </form>
 
-            <div className={`fsuccess${done ? ' show' : ''}`}>
-              <div className="ic">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </div>
-              <h2>Inscrição enviada!</h2>
-              <p>Obrigado por querer fazer parte do time. Vamos analisar sua inscrição e entrar em contato em breve pelo WhatsApp.</p>
-              <a className="btn btn-light" href="/">Voltar ao site</a>
-            </div>
           </div>
         </div>
       </main>
+
+      <div className={`fsuccess${done ? ' show' : ''}`}>
+        <div className="fsuccess-box">
+          <div className="ic">
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+          <h2>Inscrição enviada!</h2>
+          <p>Obrigado por querer fazer parte do time. Vamos analisar sua inscrição e entrar em contato em breve pelo WhatsApp.</p>
+          <div className="factions">
+            <a className="btn btn-light" href="/">Voltar ao site</a>
+          </div>
+        </div>
+      </div>
+
+      {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   )
 }

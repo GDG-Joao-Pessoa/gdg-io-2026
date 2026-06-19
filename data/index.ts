@@ -18,9 +18,10 @@ export const tickets = [
   {
     id: '1lot',
     name: '1º Lote',
-    price: 'Em breve',
+    price: 'R$ 70',
+    open: true,
     features: ['Melhor preço', 'Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Abre 15 JUN · 12h',
+    ctaLabel: 'Inscreva-se agora',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: true,
   },
@@ -29,7 +30,7 @@ export const tickets = [
     name: '2º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 24 JUN',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -38,7 +39,7 @@ export const tickets = [
     name: '3º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 04 JUL',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -47,7 +48,7 @@ export const tickets = [
     name: '4º Lote',
     price: 'Em breve',
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Em breve',
+    ctaLabel: 'Abre 10 JUL',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
     featured: false,
   },
@@ -56,7 +57,7 @@ export const tickets = [
 export const faqItems = [
   {
     q: 'O evento é gratuito?',
-    a: 'As inscrições funcionam por lotes. Os valores e a data de abertura de cada lote serão divulgados em breve nas nossas redes — o 1º lote começa em 15 de junho, às 12h.',
+    a: 'As inscrições funcionam por lotes com preços progressivos. O 1º lote está aberto por R$ 70. Os próximos lotes abrem em 24/06, 04/07 e 10/07.',
     open: true,
   },
   {

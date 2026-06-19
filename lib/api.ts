@@ -1,7 +1,5 @@
-const BASE = 'https://api.gdg.rodolfodebonis.com.br'
-
 async function post<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await fetch(path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -21,12 +19,12 @@ async function post<T>(path: string, body: unknown): Promise<T> {
 
 export const api = {
   proposals: {
-    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/v1/proposals', body),
+    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/api/proposals', body),
   },
   volunteers: {
-    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/v1/volunteers', body),
+    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/api/volunteers', body),
   },
   sponsors: {
-    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/v1/sponsors', body),
+    create: (body: Record<string, unknown>) => post<{ id: string; status: string }>('/api/sponsors', body),
   },
 }

@@ -90,6 +90,22 @@ a {
   transform: translateY(1px);
 }
 
+.btn:disabled {
+  background: #e8eaed;
+  color: #9aa0a6;
+  border-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled .dot {
+  background: #9aa0a6;
+}
+
+.btn:disabled:active {
+  transform: none;
+}
+
 .btn .dot {
   width: 11px;
   height: 11px;
@@ -123,6 +139,44 @@ a {
 
 .btn-on-dark:hover {
   background: #fff;
+}
+
+.c4p-countdown {
+  gap: 14px;
+  cursor: default;
+}
+
+.c4p-countdown:disabled {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,.25);
+}
+
+.c4p-countdown:disabled .dot {
+  background: var(--red) !important;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+.c4p-countdown-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  line-height: 1.2;
+}
+
+.c4p-countdown-label {
+  font-size: 12px;
+  font-family: var(--mono), ui-monospace, monospace;
+  letter-spacing: .08em;
+  opacity: .75;
+}
+
+.c4p-countdown-timer {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
 }
 
 .btn-ghost {
@@ -556,26 +610,77 @@ a {
 .speakers {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  gap: 32px;
   margin-top: 56px;
 }
 
-.spk {
+/* ---- speaker card: foto + overlay + bio num único bloco ---- */
+.spk-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
-.spk .nm {
-  font-size: 21px;
-  font-weight: 700;
+.spk {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+  flex: 0 0 auto;
+}
+
+.spk-card .spk {
+  border-radius: 0;
+}
+
+.spk-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.spk-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.spk-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.3) 50%, transparent 75%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 3px;
+}
+
+.spk-overlay .nm {
+  font-size: 19px;
+  font-weight: 800;
   letter-spacing: -.01em;
+  color: #fff;
+  line-height: 1.2;
 }
 
-.spk .ro {
+.spk-overlay .ro {
   font-family: var(--mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,.6);
+}
+
+.spk-bio {
+  padding: 16px 20px 20px;
   font-size: 14px;
-  color: var(--muted);
+  color: #3c4043;
+  line-height: 1.65;
+  margin: 0;
 }
 
 .spk.soon {
@@ -701,6 +806,32 @@ a {
 }
 
 .tk.feature .k { color: var(--yellowH); }
+
+.tk-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--greenH);
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.tk-open::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--greenH);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .5; transform: scale(.75); }
+}
 
 .tk .price {
   font-size: 38px;
@@ -1327,12 +1458,34 @@ a {
 
 .fsuccess {
   display: none;
-  text-align: center;
-  padding: 20px 0 8px;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
-.fsuccess.show { display: block; }
-.fcard.done .fform { display: none; }
+.fsuccess.show { display: flex; }
+
+.fsuccess-box {
+  background: #fff;
+  border-radius: 24px;
+  padding: clamp(32px, 5vw, 56px);
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, .2);
+  animation: modal-in .25s cubic-bezier(.2, 0, 0, 1);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
 
 .fsuccess .ic {
   width: 84px;
@@ -1360,12 +1513,15 @@ a {
   color: #3c4043;
   font-size: 18px;
   margin-top: 14px;
-  max-width: 460px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.fsuccess .btn { margin-top: 28px; }
+.fsuccess .factions {
+  justify-content: center;
+  margin-top: 28px;
+}
 
 /* ============================================================
    Programação
@@ -1618,6 +1774,80 @@ a {
 @media (max-width: 680px) {
   .fgrid { grid-template-columns: 1fr; }
   .fcard { margin-top: -20px; }
+  .factions { flex-direction: column; align-items: center; }
+  .factions .req-note { text-align: center; }
+}
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink2);
+  color: var(--off);
+  border-radius: 18px;
+  padding: 18px 20px 18px 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+  min-width: 320px;
+  max-width: min(560px, calc(100vw - 40px));
+  animation: toast-in .28s cubic-bezier(.2, .8, .4, 1) both;
+}
+
+.toast-success { border-left: 4px solid var(--green); }
+.toast-error   { border-left: 4px solid var(--red); }
+
+.toast-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.toast-success .toast-icon { background: rgba(52, 168, 83, .18); color: var(--greenH); }
+.toast-error   .toast-icon { background: rgba(234, 67, 53, .18); color: var(--redH); }
+
+.toast-icon svg { width: 18px; height: 18px; }
+
+.toast-msg {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.toast-close {
+  background: none;
+  border: 0;
+  color: #9aa0a6;
+  cursor: pointer;
+  padding: 4px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  transition: color .15s, background .15s;
+}
+
+.toast-close:hover { color: #fff; background: rgba(255, 255, 255, .1); }
+.toast-close svg { width: 16px; height: 16px; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(14px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@media (max-width: 520px) {
+  .toast {
+    bottom: 20px;
+    min-width: unset;
+    width: calc(100vw - 32px);
+  }
 }
 
 /* ---------- speakers carousel (home) ---------- */

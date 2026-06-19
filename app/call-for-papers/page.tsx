@@ -2,14 +2,25 @@
 
 import { useRef, useState } from 'react'
 import FormHeader from '@/components/FormHeader'
+import Toast from '@/components/Toast'
 import { api } from '@/lib/api'
 
 export default function CallForPapers() {
   const formRef = useRef<HTMLFormElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [formValid, setFormValid] = useState(false)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  function checkValidity() {
+    setFormValid(formRef.current?.checkValidity() ?? false)
+  }
+
+  function closeSuccess() {
+    setDone(false)
+    formRef.current?.reset()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
@@ -19,7 +30,7 @@ export default function CallForPapers() {
     }
 
     setSubmitting(true)
-    setError(null)
+    setToast(null)
 
     const fd = new FormData(formRef.current)
     try {
@@ -28,18 +39,16 @@ export default function CallForPapers() {
         email:   fd.get('email'),
         cargo:   fd.get('cargo') || null,
         social:  fd.get('social') || null,
-        bio:     fd.get('bio') || null,
+        bio:     fd.get('bio'),
         titulo:  fd.get('titulo'),
         formato: fd.get('formato'),
         nivel:   fd.get('nivel'),
         trilha:  fd.get('trilha'),
         resumo:  fd.get('resumo'),
       })
-      cardRef.current?.classList.add('done')
       setDone(true)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.')
+      setToast({ type: 'error', message: err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.' })
     } finally {
       setSubmitting(false)
     }
@@ -66,13 +75,13 @@ export default function CallForPapers() {
 
       <main className="fbody">
         <div className="wrap">
-          <div className="fcard" ref={cardRef}>
-            <form className="fform" ref={formRef} onSubmit={handleSubmit} noValidate>
+          <div className="fcard">
+            <form className="fform" ref={formRef} onSubmit={handleSubmit} onChange={checkValidity} noValidate>
 
               <div className="fsection-title">Sobre você</div>
               <div className="fgrid">
                 <div className="field">
-                  <label htmlFor="nome">Nome completo<span className="req">*</span></label>
+                  <label htmlFor="nome">Nome <span className="hint">— será usado nos cards de divulgação</span><span className="req">*</span></label>
                   <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
                 </div>
                 <div className="field">
@@ -88,8 +97,8 @@ export default function CallForPapers() {
                   <input id="social" name="social" type="text" placeholder="linkedin.com/in/voce" />
                 </div>
                 <div className="field full">
-                  <label htmlFor="bio">Mini bio</label>
-                  <textarea id="bio" name="bio" placeholder="Resumo curto sobre sua trajetória (2–3 frases)" style={{ minHeight: 90 }} />
+                  <label htmlFor="bio">Mini bio<span className="req">*</span></label>
+                  <textarea id="bio" name="bio" placeholder="Resumo curto sobre sua trajetória (2–3 frases)" style={{ minHeight: 90 }} required />
                 </div>
               </div>
 
@@ -130,20 +139,13 @@ export default function CallForPapers() {
                 </div>
               </div>
 
-              {error && (
-                <div className="fnote" style={{ color: 'var(--red)', marginTop: 16 }}>
-                  <span className="pin" style={{ background: 'var(--red)' }} />
-                  <span>{error}</span>
-                </div>
-              )}
-
               <div className="fnote">
                 <span className="pin" />
-                <span>As propostas passam por curadoria do GDG João Pessoa. Avisaremos por e-mail o resultado e os próximos passos dentro do prazo do Call for Papers.</span>
+                <span>As propostas passam por curadoria do GDG João Pessoa. Os resultados serão divulgados até <strong>30 de junho</strong>.</span>
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light" disabled={submitting}>
+                <button type="submit" className="btn btn-light" disabled={submitting || !formValid}>
                   <span className="dot" style={{ background: 'var(--red)' }} />
                   {submitting ? 'Enviando…' : 'Enviar proposta'}
                 </button>
@@ -151,19 +153,30 @@ export default function CallForPapers() {
               </div>
             </form>
 
-            <div className={`fsuccess${done ? ' show' : ''}`}>
-              <div className="ic">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </div>
-              <h2>Proposta enviada!</h2>
-              <p>Valeu por compartilhar! Sua proposta entrou na curadoria. Avisaremos o resultado por e-mail dentro do prazo do Call for Papers.</p>
-              <a className="btn btn-light" href="/">Voltar ao site</a>
-            </div>
           </div>
         </div>
       </main>
+
+      <div className={`fsuccess${done ? ' show' : ''}`}>
+        <div className="fsuccess-box">
+          <div className="ic">
+            <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+          <h2>Proposta enviada!</h2>
+          <p>Valeu por compartilhar! Sua proposta entrou na curadoria. Os resultados serão divulgados até <strong>30 de junho</strong> — fique de olho no e-mail.</p>
+          <div className="factions">
+            <button className="btn btn-light" onClick={closeSuccess}>
+              <span className="dot" style={{ background: 'var(--blue)' }} />
+              Enviar outra proposta
+            </button>
+            <a className="btn btn-ghost" href="/" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>Voltar ao site</a>
+          </div>
+        </div>
+      </div>
+
+      {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   )
 }
