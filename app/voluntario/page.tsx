@@ -2,21 +2,46 @@
 
 import { useRef, useState } from 'react'
 import FormHeader from '@/components/FormHeader'
+import { api } from '@/lib/api'
 
 export default function Voluntario() {
   const formRef = useRef<HTMLFormElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!formRef.current?.checkValidity()) {
       formRef.current?.reportValidity()
       return
     }
-    cardRef.current?.classList.add('done')
-    setDone(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    setSubmitting(true)
+    setError(null)
+
+    const fd = new FormData(formRef.current)
+    try {
+      await api.volunteers.create({
+        nome:      fd.get('nome'),
+        email:     fd.get('email'),
+        whats:     fd.get('whats'),
+        cidade:    fd.get('cidade') || null,
+        camiseta:  fd.get('camiseta') || null,
+        areas:     fd.getAll('area'),
+        disp:      fd.get('disp') || null,
+        exp:       fd.get('exp') || null,
+        motiv:     fd.get('motiv') || null,
+      })
+      cardRef.current?.classList.add('done')
+      setDone(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -111,14 +136,22 @@ export default function Voluntario() {
                 </div>
               </div>
 
+              {error && (
+                <div className="fnote" style={{ color: 'var(--red)', marginTop: 16 }}>
+                  <span className="pin" style={{ background: 'var(--red)' }} />
+                  <span>{error}</span>
+                </div>
+              )}
+
               <div className="fnote">
                 <span className="pin" />
                 <span>As vagas de voluntariado são limitadas. Após a inscrição, a organização do GDG João Pessoa entra em contato pelo WhatsApp/e-mail informado.</span>
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light">
-                  <span className="dot" style={{ background: 'var(--green)' }} />Enviar inscrição
+                <button type="submit" className="btn btn-light" disabled={submitting}>
+                  <span className="dot" style={{ background: 'var(--green)' }} />
+                  {submitting ? 'Enviando…' : 'Enviar inscrição'}
                 </button>
                 <span className="req-note"><span className="req">*</span> campos obrigatórios</span>
               </div>

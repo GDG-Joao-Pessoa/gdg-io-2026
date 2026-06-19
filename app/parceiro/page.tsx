@@ -3,21 +3,46 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import FormHeader from '@/components/FormHeader'
+import { api } from '@/lib/api'
 
 export default function Parceiro() {
   const formRef = useRef<HTMLFormElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     if (!formRef.current?.checkValidity()) {
       formRef.current?.reportValidity()
       return
     }
-    cardRef.current?.classList.add('done')
-    setDone(true)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    setSubmitting(true)
+    setError(null)
+
+    const fd = new FormData(formRef.current)
+    try {
+      await api.sponsors.create({
+        empresa:  fd.get('empresa'),
+        site:     fd.get('site') || null,
+        segmento: fd.get('segmento') || null,
+        resp:     fd.get('resp'),
+        cargo:    fd.get('cargo') || null,
+        email:    fd.get('email'),
+        whats:    fd.get('whats'),
+        cota:     fd.get('cota'),
+        msg:      fd.get('msg') || null,
+      })
+      cardRef.current?.classList.add('done')
+      setDone(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao enviar. Tente novamente.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -100,14 +125,22 @@ export default function Parceiro() {
                 </div>
               </div>
 
+              {error && (
+                <div className="fnote" style={{ color: 'var(--red)', marginTop: 16 }}>
+                  <span className="pin" style={{ background: 'var(--red)' }} />
+                  <span>{error}</span>
+                </div>
+              )}
+
               <div className="fnote">
                 <span className="pin" />
                 <span>Ao enviar, a organização do GDG João Pessoa retorna com o kit de patrocínio completo e os próximos passos. Você também pode baixar o kit agora mesmo no botão abaixo.</span>
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light">
-                  <span className="dot" style={{ background: 'var(--yellow)' }} />Enviar interesse
+                <button type="submit" className="btn btn-light" disabled={submitting}>
+                  <span className="dot" style={{ background: 'var(--yellow)' }} />
+                  {submitting ? 'Enviando…' : 'Enviar interesse'}
                 </button>
                 <Link className="btn btn-ghost" href="/kit-de-patrocinio" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>
                   Baixar kit de patrocínio
