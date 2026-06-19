@@ -133,9 +133,9 @@ export default function Parceiro() {
                   <span className="dot" style={{ background: 'var(--yellow)' }} />
                   {submitting ? 'Enviando…' : 'Enviar interesse'}
                 </button>
-                <Link className="btn btn-ghost" href="/kit-de-patrocinio" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>
+                <a className="btn btn-ghost" href="https://drive.google.com/file/d/1csiiQSj3lCabGHWdSXpHKICpioei0haT/view?usp=sharing" target="_blank" rel="noopener" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>
                   Baixar kit de patrocínio
-                </Link>
+                </a>
                 <span className="req-note"><span className="req">*</span> campos obrigatórios</span>
               </div>
             </form>
@@ -154,7 +154,7 @@ export default function Parceiro() {
           <h2>Interesse enviado!</h2>
           <p>Obrigado! Em breve a organização entra em contato com o kit de patrocínio e as cotas disponíveis.</p>
           <div className="factions">
-            <Link className="btn btn-light" href="/kit-de-patrocinio">Baixar kit de patrocínio</Link>
+            <a className="btn btn-light" href="https://drive.google.com/file/d/1csiiQSj3lCabGHWdSXpHKICpioei0haT/view?usp=sharing" target="_blank" rel="noopener">Baixar kit de patrocínio</a>
             <a className="btn btn-ghost" href="/" style={{ borderColor: 'var(--line)', color: 'var(--ink)' }}>Voltar ao site</a>
           </div>
         </div>

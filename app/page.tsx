@@ -211,9 +211,9 @@ export default function Home() {
               <Link className="btn btn-on-dark" href="/parceiro">
                 <span className="dot" style={{ background: 'var(--blue)' }} />Quero ser parceiro
               </Link>
-              <Link className="btn btn-ghost" href="/kit-de-patrocinio" style={{ color: 'var(--off)' }}>
+              <a className="btn btn-ghost" href="https://drive.google.com/file/d/1csiiQSj3lCabGHWdSXpHKICpioei0haT/view?usp=sharing" target="_blank" rel="noopener" style={{ color: 'var(--off)' }}>
                 Baixar kit de patrocínio
-              </Link>
+              </a>
             </div>
           </div>
         </div>
