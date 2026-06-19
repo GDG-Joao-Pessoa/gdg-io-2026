@@ -49,7 +49,7 @@ export default function C4PCountdown() {
       <span className="dot" style={{ background: 'var(--red)' }} />
       <span className="c4p-countdown-text">
         <span className="c4p-countdown-label">Abre hoje às 18h</span>
-        <span className="c4p-countdown-timer">{label}</span>
+        <span className="c4p-countdown-timer" suppressHydrationWarning>{label}</span>
       </span>
     </button>
   )
