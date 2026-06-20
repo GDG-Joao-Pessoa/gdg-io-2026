@@ -11,9 +11,29 @@ export default function CallForPapers() {
   const [submitting, setSubmitting] = useState(false)
   const [formValid, setFormValid] = useState(false)
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [photoPreview, setPhotoPreview] = useState('')
 
   function checkValidity() {
     setFormValid(formRef.current?.checkValidity() ?? false)
+  }
+
+  function onPhoto(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setToast({ type: 'error', message: 'Formato não suportado. Use JPEG, PNG ou WebP.' })
+      e.target.value = ''
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setToast({ type: 'error', message: 'Imagem muito grande (máx. 5MB).' })
+      e.target.value = ''
+      return
+    }
+    if (photoPreview) URL.revokeObjectURL(photoPreview)
+    setPhoto(file)
+    setPhotoPreview(URL.createObjectURL(file))
   }
 
   function maskWhatsApp(e: React.ChangeEvent<HTMLInputElement>) {
@@ -28,6 +48,9 @@ export default function CallForPapers() {
   function closeSuccess() {
     setDone(false)
     formRef.current?.reset()
+    if (photoPreview) URL.revokeObjectURL(photoPreview)
+    setPhoto(null)
+    setPhotoPreview('')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -43,6 +66,17 @@ export default function CallForPapers() {
 
     const fd = new FormData(formRef.current)
     try {
+      let fotoUrl: string | undefined
+      if (photo) {
+        const up = new FormData()
+        up.append('file', photo)
+        const res = await fetch('/api/uploads', { method: 'POST', body: up })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok || !data.url) {
+          throw new Error(data.error ?? 'Não foi possível enviar a foto. Tente novamente.')
+        }
+        fotoUrl = data.url
+      }
       await api.proposals.create({
         nome:    fd.get('nome'),
         email:   fd.get('email'),
@@ -55,6 +89,7 @@ export default function CallForPapers() {
         nivel:   fd.get('nivel'),
         trilha:  fd.get('trilha'),
         resumo:  fd.get('resumo'),
+        fotoUrl,
       })
       setDone(true)
     } catch (err) {
@@ -109,6 +144,16 @@ export default function CallForPapers() {
                 <div className="field full">
                   <label htmlFor="social">LinkedIn ou @ <span className="hint">— pra te conhecermos</span></label>
                   <input id="social" name="social" type="text" placeholder="linkedin.com/in/voce" />
+                </div>
+                <div className="field full">
+                  <label htmlFor="foto">Foto <span className="hint">— aparece nos cards de divulgação (opcional)</span></label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    {photoPreview && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={photoPreview} alt="" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: '50%', border: '1px solid var(--line)' }} />
+                    )}
+                    <input id="foto" type="file" accept="image/jpeg,image/png,image/webp" onChange={onPhoto} />
+                  </div>
                 </div>
                 <div className="field full">
                   <label htmlFor="bio">Mini bio<span className="req">*</span></label>
