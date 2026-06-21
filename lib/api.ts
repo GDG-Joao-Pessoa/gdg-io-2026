@@ -31,7 +31,7 @@ export const api = {
 
 // ---- Leitura pública (programação + palestrantes) --------------------------
 
-const BACKEND = 'https://api.gdg.rodolfodebonis.com.br'
+const BACKEND = 'https://api.gdgjoaopessoa.com.br'
 
 export interface ApiRoom {
   id: string

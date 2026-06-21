@@ -1,4 +1,4 @@
-const BACKEND = 'https://api.gdg.rodolfodebonis.com.br'
+const BACKEND = 'https://api.gdgjoaopessoa.com.br'
 
 // Proxy do upload público de imagens (Call for Papers) → API Go.
 export async function POST(request: Request) {

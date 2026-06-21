@@ -1,4 +1,4 @@
-const BACKEND = 'https://api.gdg.rodolfodebonis.com.br'
+const BACKEND = 'https://api.gdgjoaopessoa.com.br'
 
 export async function POST(request: Request) {
   const body = await request.json()
