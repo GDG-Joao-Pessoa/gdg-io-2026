@@ -154,6 +154,63 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== BENEFÍCIOS ===== */}
+      <section className="section" id="beneficios">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="eyebrow" style={{ color: 'var(--green)' }}>O que está incluído</span>
+            <h2>Tudo que você ganha no evento</h2>
+            <p>Um ingresso, uma experiência completa — do café da manhã ao certificado.</p>
+          </div>
+          <div className="benefits">
+            <div className="benefit">
+              <div className="benefit-icon" style={{ background: 'rgba(52,168,83,.1)', color: 'var(--greenH)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" />
+                </svg>
+              </div>
+              <div className="benefit-body">
+                <div className="benefit-title">Alimentação incluída</div>
+                <div className="benefit-desc">Dois coffee breaks ao longo do dia, com café, lanches e frutas — sem custo extra.</div>
+              </div>
+            </div>
+            <div className="benefit">
+              <div className="benefit-icon" style={{ background: 'rgba(66,133,244,.1)', color: 'var(--blueH)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="6" /><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+                </svg>
+              </div>
+              <div className="benefit-body">
+                <div className="benefit-title">Certificado de participação</div>
+                <div className="benefit-desc">Certificado digital emitido para todos os participantes inscritos após o evento.</div>
+              </div>
+            </div>
+            <div className="benefit">
+              <div className="benefit-icon" style={{ background: 'rgba(249,171,0,.1)', color: 'var(--yellowH)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div className="benefit-body">
+                <div className="benefit-title">Networking</div>
+                <div className="benefit-desc">Conecte-se com +500 devs, designers e entusiastas de tecnologia da Paraíba e do Brasil.</div>
+              </div>
+            </div>
+            <div className="benefit">
+              <div className="benefit-icon" style={{ background: 'rgba(234,67,53,.1)', color: 'var(--redH)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12" /><rect x="2" y="7" width="20" height="5" /><line x1="12" y1="22" x2="12" y2="7" /><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" /><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                </svg>
+              </div>
+              <div className="benefit-body">
+                <div className="benefit-title">Kit exclusivo do evento</div>
+                <div className="benefit-desc">Material e brindes exclusivos preparados pelo GDG João Pessoa para todos os participantes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== INGRESSOS ===== */}
       <section className="section alt" id="ingressos">
         <div className="wrap">
