@@ -157,6 +157,17 @@ a {
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
+.vol-countdown:disabled {
+  background: rgba(52,168,83,.08);
+  color: var(--ink);
+  border: 1.5px solid rgba(52,168,83,.3);
+}
+
+.vol-countdown:disabled .dot {
+  background: var(--green) !important;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
 .c4p-countdown-text {
   display: flex;
   flex-direction: column;

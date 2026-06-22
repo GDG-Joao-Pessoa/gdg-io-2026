@@ -45,7 +45,7 @@ export default function VolunteerCountdown() {
     : `${pad(m)}m ${pad(s)}s`
 
   return (
-    <button className="btn btn-light c4p-countdown" disabled>
+    <button className="btn btn-light c4p-countdown vol-countdown" disabled>
       <span className="dot" style={{ background: 'var(--green)' }} />
       <span className="c4p-countdown-text">
         <span className="c4p-countdown-label">Abre hoje às 9h</span>
