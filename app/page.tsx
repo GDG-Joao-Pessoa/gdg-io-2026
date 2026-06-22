@@ -5,6 +5,7 @@ import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import SpeakersCarousel from '@/components/SpeakersCarousel'
 import C4PCountdown from '@/components/C4PCountdown'
+import VolunteerCountdown from '@/components/VolunteerCountdown'
 import { stats, tracks, tickets, faqItems } from '@/data'
 
 const jsonLd = {
@@ -142,7 +143,7 @@ export default function Home() {
                 <h3>Seja voluntário</h3>
                 <p>O evento é construído por pessoas como você. Ajude na organização, recepção, conteúdo ou bastidores e viva o I/O por dentro.</p>
                 <div className="cta-row">
-                  <span className="tag-soon" style={{ color: 'var(--green)' }}>Inscrições em breve</span>
+                  <VolunteerCountdown />
                 </div>
               </div>
               <div className="ill">
