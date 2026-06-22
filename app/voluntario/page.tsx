@@ -9,7 +9,14 @@ export default function Voluntario() {
   const formRef = useRef<HTMLFormElement>(null)
   const [done, setDone] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [formValid, setFormValid] = useState(false)
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  function checkValidity() {
+    const formOk = formRef.current?.checkValidity() ?? false
+    const areaOk = (formRef.current?.querySelectorAll('input[name="area"]:checked').length ?? 0) > 0
+    setFormValid(formOk && areaOk)
+  }
 
   async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
@@ -65,7 +72,7 @@ export default function Voluntario() {
       <main className="fbody">
         <div className="wrap">
           <div className="fcard">
-            <form className="fform" ref={formRef} onSubmit={handleSubmit} noValidate>
+            <form className="fform" ref={formRef} onSubmit={handleSubmit} onChange={checkValidity} noValidate>
 
               <div className="fsection-title">Seus dados</div>
               <div className="fgrid">
@@ -82,12 +89,12 @@ export default function Voluntario() {
                   <input id="whats" name="whats" type="tel" placeholder="(83) 9 9999-9999" required />
                 </div>
                 <div className="field">
-                  <label htmlFor="cidade">Cidade</label>
-                  <input id="cidade" name="cidade" type="text" placeholder="João Pessoa, PB" />
+                  <label htmlFor="cidade">Cidade<span className="req">*</span></label>
+                  <input id="cidade" name="cidade" type="text" placeholder="João Pessoa, PB" required />
                 </div>
                 <div className="field">
-                  <label htmlFor="camiseta">Tamanho de camiseta</label>
-                  <select id="camiseta" name="camiseta">
+                  <label htmlFor="camiseta">Tamanho de camiseta<span className="req">*</span></label>
+                  <select id="camiseta" name="camiseta" required>
                     <option value="">Selecione</option>
                     {['PP', 'P', 'M', 'G', 'GG', 'XG'].map(s => <option key={s}>{s}</option>)}
                   </select>
@@ -96,7 +103,7 @@ export default function Voluntario() {
 
               <div className="fsection-title">Onde quer ajudar</div>
               <div className="field full">
-                <label>Áreas de interesse <span className="hint">— marque quantas quiser</span></label>
+                <label>Áreas de interesse<span className="req">*</span> <span className="hint">— marque ao menos uma</span></label>
                 <div className="chips" style={{ marginTop: 4 }}>
                   {[
                     ['Recepção e credenciamento', 'Recepção & credenciamento'],
@@ -115,22 +122,22 @@ export default function Voluntario() {
               </div>
               <div className="fgrid" style={{ marginTop: 22 }}>
                 <div className="field">
-                  <label htmlFor="disp">Disponibilidade</label>
-                  <select id="disp" name="disp">
+                  <label htmlFor="disp">Disponibilidade<span className="req">*</span></label>
+                  <select id="disp" name="disp" required>
                     <option value="">Selecione</option>
                     {['Dia todo (08h–17h)', 'Apenas manhã', 'Apenas tarde', 'Também na montagem (sexta)'].map(o => <option key={o}>{o}</option>)}
                   </select>
                 </div>
                 <div className="field">
-                  <label htmlFor="exp">Já foi voluntário(a) antes?</label>
-                  <select id="exp" name="exp">
+                  <label htmlFor="exp">Já foi voluntário(a) antes?<span className="req">*</span></label>
+                  <select id="exp" name="exp" required>
                     <option value="">Selecione</option>
                     {['Sim, em eventos de tecnologia', 'Sim, em outros eventos', 'Não, será a primeira vez'].map(o => <option key={o}>{o}</option>)}
                   </select>
                 </div>
                 <div className="field full">
-                  <label htmlFor="motiv">Por que você quer ser voluntário(a)?</label>
-                  <textarea id="motiv" name="motiv" placeholder="Conte um pouco sobre você e o que te motiva (opcional)" />
+                  <label htmlFor="motiv">Por que você quer ser voluntário(a)?<span className="req">*</span></label>
+                  <textarea id="motiv" name="motiv" placeholder="Conte um pouco sobre você e o que te motiva" required />
                 </div>
               </div>
 
@@ -140,7 +147,7 @@ export default function Voluntario() {
               </div>
 
               <div className="factions">
-                <button type="submit" className="btn btn-light" disabled={submitting}>
+                <button type="submit" className="btn btn-light" disabled={submitting || !formValid}>
                   <span className="dot" style={{ background: 'var(--green)' }} />
                   {submitting ? 'Enviando…' : 'Enviar inscrição'}
                 </button>
