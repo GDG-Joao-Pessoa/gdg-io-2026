@@ -78,82 +78,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== AGENDA (teaser) ===== */}
-      <section className="section" id="agenda">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="eyebrow" style={{ color: 'var(--green)' }}>Programação · 18 de julho</span>
-            <h2>Quatro trilhas de conteúdo</h2>
-            <p>De manhã, keynotes no palco principal. À tarde, o evento se divide em quatro trilhas paralelas — escolha a que mais combina com você.</p>
-          </div>
-          <div className="trk-cards">
-            {tracks.map((t) => (
-              <div className="trkc" key={t.name}>
-                <div className="bar" style={{ background: t.color }} />
-                <div className="in">
-                  <span className="k">Trilha</span>
-                  <div className="nm">{t.name}</div>
-                  <div className="ds">{t.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="agenda-more">
-            <Link className="btn btn-light" href="/programacao">
-              <span className="dot" style={{ background: 'var(--green)' }} />Ver programação completa
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PALESTRANTES ===== */}
-      <section className="section alt" id="palestrantes">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="eyebrow" style={{ color: 'var(--red)' }}>Quem vai falar</span>
-            <h2>Palestrantes</h2>
-            <p>Estamos finalizando a lista de convidados. Em breve anunciamos os palestrantes confirmados — fique de olho no nosso Instagram.</p>
-          </div>
-          <SpeakersCarousel />
-        </div>
-      </section>
-
-      {/* ===== C4P + VOLUNTÁRIOS ===== */}
-      <section className="section" id="c4p">
-        <div className="wrap">
-          <div className="bands">
-            <div className="band c4p">
-              <div className="sh" style={{ width: 280, height: 280, right: -60, top: -80, background: 'radial-gradient(circle,rgba(66,133,244,.4),transparent 70%)' }} />
-              <div className="bcopy">
-                <span className="eyebrow" style={{ color: 'var(--yellowH)' }}>Chamada de palestras · C4P</span>
-                <h3>Compartilhe seu conhecimento</h3>
-                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended. Resultados até <strong>30 de junho</strong>.</p>
-                <div className="cta-row">
-                  <C4PCountdown />
-                </div>
-              </div>
-              <div className="ill">
-                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} priority />
-              </div>
-            </div>
-
-            <div className="band vol" id="voluntarios">
-              <div className="bcopy">
-                <span className="eyebrow" style={{ color: 'var(--green)' }}>Faça parte do time</span>
-                <h3>Seja voluntário</h3>
-                <p>O evento é construído por pessoas como você. Ajude na organização, recepção, conteúdo ou bastidores e viva o I/O por dentro.</p>
-                <div className="cta-row">
-                  <VolunteerCountdown />
-                </div>
-              </div>
-              <div className="ill">
-                <Image src="/assets/gdg-icon.png" alt="" width={280} height={280} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ===== BENEFÍCIOS ===== */}
       <section className="section" id="beneficios">
         <div className="wrap">
@@ -211,8 +135,84 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== AGENDA (teaser) ===== */}
+      <section className="section alt" id="agenda">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="eyebrow" style={{ color: 'var(--green)' }}>Programação · 18 de julho</span>
+            <h2>Quatro trilhas de conteúdo</h2>
+            <p>De manhã, keynotes no palco principal. À tarde, o evento se divide em quatro trilhas paralelas — escolha a que mais combina com você.</p>
+          </div>
+          <div className="trk-cards">
+            {tracks.map((t) => (
+              <div className="trkc" key={t.name}>
+                <div className="bar" style={{ background: t.color }} />
+                <div className="in">
+                  <span className="k">Trilha</span>
+                  <div className="nm">{t.name}</div>
+                  <div className="ds">{t.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="agenda-more">
+            <Link className="btn btn-light" href="/programacao">
+              <span className="dot" style={{ background: 'var(--green)' }} />Ver programação completa
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PALESTRANTES ===== */}
+      <section className="section" id="palestrantes">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>Quem vai falar</span>
+            <h2>Palestrantes</h2>
+            <p>Estamos finalizando a lista de convidados. Em breve anunciamos os palestrantes confirmados — fique de olho no nosso Instagram.</p>
+          </div>
+          <SpeakersCarousel />
+        </div>
+      </section>
+
+      {/* ===== C4P + VOLUNTÁRIOS ===== */}
+      <section className="section alt" id="c4p">
+        <div className="wrap">
+          <div className="bands">
+            <div className="band c4p">
+              <div className="sh" style={{ width: 280, height: 280, right: -60, top: -80, background: 'radial-gradient(circle,rgba(66,133,244,.4),transparent 70%)' }} />
+              <div className="bcopy">
+                <span className="eyebrow" style={{ color: 'var(--yellowH)' }}>Chamada de palestras · C4P</span>
+                <h3>Compartilhe seu conhecimento</h3>
+                <p>Tem um tema sobre desenvolvimento, IA, cloud, mobile ou comunidade? Envie sua proposta de palestra e suba no palco do I/O Extended. Resultados até <strong>30 de junho</strong>.</p>
+                <div className="cta-row">
+                  <C4PCountdown />
+                </div>
+              </div>
+              <div className="ill">
+                <Image src="/assets/gdg-icon-solid-white.png" alt="" width={280} height={280} priority />
+              </div>
+            </div>
+
+            <div className="band vol" id="voluntarios">
+              <div className="bcopy">
+                <span className="eyebrow" style={{ color: 'var(--green)' }}>Faça parte do time</span>
+                <h3>Seja voluntário</h3>
+                <p>O evento é construído por pessoas como você. Ajude na organização, recepção, conteúdo ou bastidores e viva o I/O por dentro.</p>
+                <div className="cta-row">
+                  <VolunteerCountdown />
+                </div>
+              </div>
+              <div className="ill">
+                <Image src="/assets/gdg-icon.png" alt="" width={280} height={280} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== INGRESSOS ===== */}
-      <section className="section alt" id="ingressos">
+      <section className="section" id="ingressos">
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>Inscrição</span>
@@ -248,7 +248,7 @@ export default function Home() {
       </section>
 
       {/* ===== PARCEIROS ===== */}
-      <section className="section" id="parceiros">
+      <section className="section alt" id="parceiros">
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--yellow)' }}>Parcerias &amp; patrocínio</span>
@@ -278,7 +278,7 @@ export default function Home() {
       </section>
 
       {/* ===== LOCAL ===== */}
-      <section className="section alt" id="local">
+      <section className="section" id="local">
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--green)' }}>Como chegar</span>
@@ -318,7 +318,7 @@ export default function Home() {
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="section" id="faq">
+      <section className="section alt" id="faq">
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--red)' }}>Dúvidas frequentes</span>
@@ -336,7 +336,7 @@ export default function Home() {
       </section>
 
       {/* ===== CONTATO ===== */}
-      <section className="section alt" id="contato">
+      <section className="section" id="contato">
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow" style={{ color: 'var(--blue)' }}>Fale com a gente</span>
