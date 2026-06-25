@@ -110,8 +110,6 @@ function FallbackSchedule() {
         ))}
       </div>
 
-      <div className="coffee">☕ Coffee break · 12h00</div>
-
       {/* TARDE */}
       <div className="ph pm">
         <h2>Tarde</h2>

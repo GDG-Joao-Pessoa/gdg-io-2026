@@ -95,7 +95,7 @@ export default function Home() {
               </div>
               <div className="benefit-body">
                 <div className="benefit-title">Alimentação incluída</div>
-                <div className="benefit-desc">Dois coffee breaks ao longo do dia, com café, lanches e frutas — sem custo extra.</div>
+                <div className="benefit-desc">Um coffee break com café, lanches e frutas — sem custo extra.</div>
               </div>
             </div>
             <div className="benefit">
