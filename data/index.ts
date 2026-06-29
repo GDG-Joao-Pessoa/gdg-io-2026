@@ -19,20 +19,20 @@ export const tickets = [
     id: '1lot',
     name: '1º Lote',
     price: 'R$ 70',
-    open: true,
     features: ['Melhor preço', 'Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Inscreva-se agora',
+    ctaLabel: 'Encerrado',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
-    featured: true,
+    featured: false,
   },
   {
     id: '2lot',
     name: '2º Lote',
-    price: 'Em breve',
+    price: 'R$ 80',
+    open: true,
     features: ['Acesso a todas as palestras', 'Workshop hands-on', 'Kit + certificado'],
-    ctaLabel: 'Abre 24 JUN',
+    ctaLabel: 'Inscreva-se agora',
     ctaHref: 'https://www.sympla.com.br/evento/google-i-o-extended-joao-pessoa/3464603',
-    featured: false,
+    featured: true,
   },
   {
     id: '3lot',
@@ -57,7 +57,7 @@ export const tickets = [
 export const faqItems = [
   {
     q: 'O evento é gratuito?',
-    a: 'As inscrições funcionam por lotes com preços progressivos. O 1º lote está aberto por R$ 70. Os próximos lotes abrem em 24/06, 04/07 e 10/07.',
+    a: 'As inscrições funcionam por lotes com preços progressivos. O 2º lote está aberto por R$ 80. Os próximos lotes abrem em 04/07 e 10/07.',
     open: true,
   },
   {
