@@ -3,11 +3,12 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SPEAKERS } from '@/lib/speakers'
+
+type CarouselSpeaker = { nome: string; cargo: string; foto: string }
 
 const CAROUSEL_SLOTS = 4
 
-export default function SpeakersCarousel() {
+export default function SpeakersCarousel({ speakers }: { speakers: CarouselSpeaker[] }) {
   const trackRef = useRef<HTMLDivElement>(null)
 
   const scroll = (dir: 'prev' | 'next') => {
@@ -17,12 +18,12 @@ export default function SpeakersCarousel() {
     trackRef.current.scrollBy({ left: dir === 'next' ? card.offsetWidth + 20 : -(card.offsetWidth + 20), behavior: 'smooth' })
   }
 
-  const soonCount = Math.max(0, CAROUSEL_SLOTS - SPEAKERS.length)
+  const soonCount = Math.max(0, CAROUSEL_SLOTS - speakers.length)
 
   return (
     <div className="spk-carousel">
       <div className="spk-track" ref={trackRef}>
-        {SPEAKERS.map((s, i) => (
+        {speakers.map((s, i) => (
           <div className="spk" key={s.nome}>
             <div className="spk-photo">
               <Image src={s.foto} alt={s.nome} width={400} height={533} priority={i === 0} />

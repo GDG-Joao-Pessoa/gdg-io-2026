@@ -7,6 +7,8 @@ import SpeakersCarousel from '@/components/SpeakersCarousel'
 import C4PCountdown from '@/components/C4PCountdown'
 import VolunteerCountdown from '@/components/VolunteerCountdown'
 import { stats, tracks, tickets, faqItems } from '@/data'
+import { getSpeakers } from '@/lib/api'
+import { SPEAKERS } from '@/lib/speakers'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -44,7 +46,12 @@ const jsonLd = {
   },
 }
 
-export default function Home() {
+export default async function Home() {
+  const apiSpeakers = await getSpeakers()
+  const speakerList = apiSpeakers
+    ? apiSpeakers.map(s => ({ nome: s.nome, cargo: s.cargo, foto: s.fotoUrl }))
+    : SPEAKERS.map(s => ({ nome: s.nome, cargo: s.cargo, foto: s.foto }))
+
   return (
     <>
       <script
@@ -171,7 +178,7 @@ export default function Home() {
             <h2>Palestrantes</h2>
             <p>Estamos finalizando a lista de convidados. Em breve anunciamos os palestrantes confirmados — fique de olho no nosso Instagram.</p>
           </div>
-          <SpeakersCarousel />
+          <SpeakersCarousel speakers={speakerList} />
         </div>
       </section>
 
