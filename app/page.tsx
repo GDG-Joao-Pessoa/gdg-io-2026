@@ -227,8 +227,8 @@ export default async function Home() {
             <p>As inscrições acontecem por lotes. <strong>1º lote aberto</strong> — quanto antes, melhor o preço.</p>
           </div>
           <div className="tickets">
-            {tickets.map((t) => (
-              <div className={`tk${t.featured ? ' feature' : ''}`} key={t.id}>
+            {[...tickets].sort((a, b) => ((b as typeof b & { open?: boolean }).open ? 1 : 0) - ((a as typeof a & { open?: boolean }).open ? 1 : 0)).map((t) => (
+              <div className={`tk${t.featured ? ' feature' : ''}${!(t as typeof t & { open?: boolean }).open ? ' tk-closed' : ''}`} key={t.id}>
                 <span className="k">
                   {t.name}
                   {(t as typeof t & { open?: boolean }).open && (

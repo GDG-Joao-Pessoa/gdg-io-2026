@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 type CarouselSpeaker = { nome: string; cargo: string; foto: string }
@@ -26,7 +25,8 @@ export default function SpeakersCarousel({ speakers }: { speakers: CarouselSpeak
         {speakers.map((s, i) => (
           <div className="spk" key={s.nome}>
             <div className="spk-photo">
-              <Image src={s.foto} alt={s.nome} width={400} height={533} priority={i === 0} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {s.foto && <img src={s.foto} alt={s.nome} width={400} height={533} loading={i === 0 ? 'eager' : 'lazy'} />}
             </div>
             <div className="spk-overlay">
               <div className="nm">{s.nome}</div>

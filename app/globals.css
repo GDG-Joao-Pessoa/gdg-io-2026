@@ -953,6 +953,11 @@ a {
   justify-content: center;
 }
 
+.tk.tk-closed {
+  opacity: 0.45;
+  filter: saturate(0);
+}
+
 /* partners */
 .partner-cta {
   margin-top: 48px;
