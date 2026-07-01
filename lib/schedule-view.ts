@@ -84,9 +84,11 @@ export function buildScheduleView(rooms: ApiRoom[], sessions: ApiSession[]): Sch
     (a, b) => a.startTime.localeCompare(b.startTime) || a.sort - b.sort,
   )
 
-  // Paralelas = têm sala própria E começam a partir das 13h (trilhas da tarde).
+  // Paralelas = têm sala própria, começam às 13h e terminam antes das 15h30
+  // (coffee break às 15h separa tarde do encerramento).
   const isParallel = (s: ApiSession) =>
-    !s.isPlenary && !!s.roomId && getHHMM(s.startTime) >= '13:00'
+    !s.isPlenary && !!s.roomId &&
+    getHHMM(s.startTime) >= '13:00' && getHHMM(s.startTime) < '15:30'
 
   const parallel = sorted.filter(isParallel)
   const plenary  = sorted.filter((s) => !isParallel(s))
