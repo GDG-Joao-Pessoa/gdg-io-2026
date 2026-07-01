@@ -118,6 +118,12 @@ export function buildScheduleView(rooms: ApiRoom[], sessions: ApiSession[]): Sch
       }
     })
     .filter((t) => t.items.length > 0)
+    .sort((a, b) => {
+      const aLab = /lab/i.test(a.trackName) || /lab/i.test(a.location)
+      const bLab = /lab/i.test(b.trackName) || /lab/i.test(b.location)
+      if (aLab === bLab) return 0
+      return aLab ? 1 : -1
+    })
 
   return { morning: morning.map(toItem), afternoon, closing: closing.map(toItem) }
 }
