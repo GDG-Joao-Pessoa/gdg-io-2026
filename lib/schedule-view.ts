@@ -64,21 +64,39 @@ function toItem(s: ApiSession): ViewItem {
   }
 }
 
+// Extrai "HH:MM" de qualquer formato: "09h20", "09:20", ISO com offset ou UTC.
+function getHHMM(t: string): string {
+  let m = t.match(/T(\d{2}):(\d{2}):\d{2}[+-]\d{2}:\d{2}$/)
+  if (m) return `${m[1]}:${m[2]}`
+  m = t.match(/T(\d{2}):(\d{2}):\d{2}Z$/)
+  if (m) {
+    const h = (parseInt(m[1], 10) - 3 + 24) % 24
+    return `${String(h).padStart(2, '0')}:${m[2]}`
+  }
+  m = t.match(/(\d{2})[h:](\d{2})/)
+  if (m) return `${m[1]}:${m[2]}`
+  return t.slice(0, 5)
+}
+
 /** Converte a resposta da API na visão por períodos (manhã/tarde/encerramento). */
 export function buildScheduleView(rooms: ApiRoom[], sessions: ApiSession[]): ScheduleView {
   const sorted = [...sessions].sort(
     (a, b) => a.startTime.localeCompare(b.startTime) || a.sort - b.sort,
   )
-  const isPlenary = (s: ApiSession) => s.isPlenary || !s.roomId
-  const plenary = sorted.filter(isPlenary)
-  const parallel = sorted.filter((s) => !isPlenary(s))
 
-  const lastParallel = parallel.length
-    ? parallel[parallel.length - 1].startTime
+  // Paralelas = têm sala própria E começam a partir das 13h (trilhas da tarde).
+  const isParallel = (s: ApiSession) =>
+    !s.isPlenary && !!s.roomId && getHHMM(s.startTime) >= '13:00'
+
+  const parallel = sorted.filter(isParallel)
+  const plenary  = sorted.filter((s) => !isParallel(s))
+
+  const lastParallelTime = parallel.length
+    ? getHHMM(parallel[parallel.length - 1].startTime)
     : undefined
 
   const closing = plenary.filter(
-    (s) => lastParallel !== undefined && s.startTime > lastParallel,
+    (s) => lastParallelTime !== undefined && getHHMM(s.startTime) > lastParallelTime,
   )
   const closingIds = new Set(closing.map((s) => s.id))
   const morning = plenary.filter((s) => !closingIds.has(s.id))
