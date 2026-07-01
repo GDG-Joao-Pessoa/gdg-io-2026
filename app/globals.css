@@ -1745,6 +1745,20 @@ a {
 
 .item .ibody .s .tba { font-style: italic; opacity: .85; }
 
+.item .idur {
+  display: inline-block;
+  margin-top: 7px;
+  font-family: var(--mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  color: #b06000;
+  background: rgba(249,171,0,.13);
+  border: 1px solid rgba(249,171,0,.4);
+  border-radius: 6px;
+  padding: 3px 9px;
+}
+
 .item .ctype {
   justify-self: end;
   font-family: var(--mono), ui-monospace, monospace;

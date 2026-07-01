@@ -3,6 +3,7 @@ import type { ApiRoom, ApiSession } from './api'
 // Estrutura que a página /programacao consome (espelha o shape antigo do data/).
 export interface ViewItem {
   time: string
+  endTime?: string
   title: string
   sub: string
   tba: boolean
@@ -55,6 +56,7 @@ function toItem(s: ApiSession): ViewItem {
   const sub = s.speaker || s.description || 'A definir'
   return {
     time: s.startTime,
+    endTime: s.endTime || undefined,
     title: s.title,
     sub,
     tba: !s.speaker && !s.description,

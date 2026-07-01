@@ -19,16 +19,24 @@ const pinSvg = (
 const ctype = (t: ViewItem['type']) =>
   t === 'k' ? 'keynote' : t === 't' ? 'talk' : t === 'w' ? 'workshop' : 'break'
 
+function fmt(t: string) {
+  const m = t.match(/(\d{2})[h:](\d{2})/) ?? t.match(/T(\d{2}):(\d{2})/)
+  return m ? `${m[1]}h${m[2]}` : t
+}
+
 function Item({ item, i }: { item: ViewItem; i: number }) {
   if (item.coffee) {
     return <div className="coffee" key={i}>☕ {item.title} · {item.time}</div>
   }
   return (
     <div className={`item ${item.type}`} key={i}>
-      <div className="itime">{item.time}</div>
+      <div className="itime">{fmt(item.time)}</div>
       <div className="ibody">
         <div className="t">{item.title}</div>
         <div className="s">{item.tba ? <span className="tba">{item.sub}</span> : item.sub}</div>
+        {item.type === 'w' && item.endTime && (
+          <span className="idur">⏱ {fmt(item.time)}–{fmt(item.endTime)}</span>
+        )}
       </div>
       <span className={`ctype track ${ctype(item.type)}`}>{item.label}</span>
     </div>
