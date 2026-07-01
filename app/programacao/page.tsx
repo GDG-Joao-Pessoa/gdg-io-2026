@@ -36,13 +36,16 @@ function Item({ item, i }: { item: ViewItem; i: number }) {
 }
 
 function DynamicSchedule({ view }: { view: ScheduleView }) {
+  const coffeeBreaks = view.closing.filter(i => i.coffee)
+  const closingItems = view.closing.filter(i => !i.coffee)
+
   return (
     <>
       {view.morning.length > 0 && (
         <>
           <div className="ph am" style={{ marginTop: 36 }}>
             <h2>Manhã</h2>
-            <span className="pr">Palco Principal</span>
+            <span className="pr">Palco Principal · 08h–12h</span>
           </div>
           <div className="sched-list">
             {view.morning.map((item, i) => <Item item={item} i={i} key={i} />)}
@@ -54,8 +57,12 @@ function DynamicSchedule({ view }: { view: ScheduleView }) {
         <>
           <div className="ph pm">
             <h2>Tarde</h2>
-            <span className="pr">Trilhas paralelas</span>
+            <span className="pr">Slots: 13h00 · 13h40 · 14h20</span>
           </div>
+          <p className="phnote">
+            Slots às <strong>13h00</strong>, <strong>13h40</strong> e <strong>14h20</strong> nas trilhas paralelas.
+            As oficinas nos laboratórios têm 2h de duração (13h00–15h00). Circule conforme seu interesse.
+          </p>
           {view.afternoon.map((track) => (
             <div key={track.trackName + track.location}>
               <div className={`trk ${track.trackClass}`}>
@@ -70,14 +77,18 @@ function DynamicSchedule({ view }: { view: ScheduleView }) {
         </>
       )}
 
-      {view.closing.length > 0 && (
+      {coffeeBreaks.map((cb, i) => (
+        <div className="coffee" key={`cb-${i}`}>☕ {cb.title} · {cb.time}</div>
+      ))}
+
+      {closingItems.length > 0 && (
         <>
           <div className="ph end">
             <h2>Encerramento</h2>
-            <span className="pr">Palco Principal</span>
+            <span className="pr">Palco Principal · 15h30–17h30</span>
           </div>
           <div className="sched-list">
-            {view.closing.map((item, i) => <Item item={item} i={i} key={i} />)}
+            {closingItems.map((item, i) => <Item item={item} i={i} key={i} />)}
           </div>
         </>
       )}
